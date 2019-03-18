@@ -15,7 +15,7 @@
         android:right="5dp">
         <shape>
             <corners android:radius="5dp"/>
-            <solid android:color="#CCFFFF"/>
+            <solid android:color="#e6e6e6"/>
         </shape>
     </item>
 </layer-list>
