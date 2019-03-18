@@ -31,8 +31,8 @@ public class RQCodeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        Bitmap mBitmap = RQCodeUtil.createQRCodeBitmap("https://www.baidu.com",200,200);
+        String room1_url = "http://test.icms.work/api/v1/boardroom/getQRCode?room_id=1";
+        Bitmap mBitmap = RQCodeUtil.createQRCodeBitmap(room1_url,200,200);
         RQCode.setImageBitmap(mBitmap);
 
 //        RQCodeBackButton.setOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,14 +61,18 @@ import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    //会议室状态
     TextView currentMeetingStaus;
+    //是否开会
     Boolean isMeeting = false;
-
+    //刷新
     Runnable mapRefreshRun;
     private Handler handler = new Handler();
+    //会议室当天会议安排列表
     private List<Meeting> meetingList = new ArrayList<>();
-
+    /**
+     * 读取相机和激活引擎的相关权限代码
+     */
     private Toast toast = null;
     private static final int ACTION_REQUEST_PERMISSIONS = 0x001;
     private static final String[] NEEDED_PERMISSIONS = new String[]{
@@ -75,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    //声明各个实例
     public DrawerLayout dl;
     RelativeLayout rlRight;
 
-
+    TextView request_text_click;
     TextView showDate;
     TextView showTime;
     ImageButton plannedImageButton;
@@ -89,12 +94,16 @@ public class MainActivity extends AppCompatActivity {
     RQCodeFragment rqCodeFragment;
     AdminFragment adminFragment;
     HelpFragment helpFragment;
-
+    //会议室详情的照片的实例
     ImageView image11;
-
+    //横向的listview
     private HorizontalListView mHorizontalListView;
+    //横向listview的适配器
     private HorizontalListViewAdapter mHorizontalListViewAdapter;
 
+    /**
+     * 会议室会议安排列表的相关属性（会议开会时间，参会人数、会议主题）
+     */
     TextView time_text;
     TextView number_text;
     TextView theme_text;
@@ -102,15 +111,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //去掉Activity上面的状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        //声明toolbar的实例
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar1);
+        mHorizontalListView = (HorizontalListView) findViewById(R.id.horizontal_lv);
         //去除默认的title显示
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //        testRequestServer();
         /////////
         /////
+        /**
+         * 启动之后向服务器发起请求
+         */
         OkHttpUtils
                 .post()
                 .url("http://test.icms.work/api/v1/boardroom/todayMeetting?")
@@ -137,7 +154,11 @@ public class MainActivity extends AppCompatActivity {
                                     editor.apply();
                                     editor.putString("meeting_data", response);
                                     editor.apply();
+
+                                    //解析字符串然后将其刷新到listview上面，形成默认页面
+                                    if (response!=null) fun(response);
                                 }
+
                             }
                         });
 
@@ -157,22 +178,96 @@ public class MainActivity extends AppCompatActivity {
 
 
         //定时自动读取缓存中的数据
-//        useHandler();
+        useHandler();
 
-
-        mHorizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        request_text_click.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Meeting meeting = meetingList.get(position);
-                Toast.makeText(MainActivity.this,
-                        meeting.getPeopleNumber(),
-                        Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                OkHttpUtils
+                        .post()
+                        .url("http://test.icms.work/api/v1/boardroom/todayMeetting?")
+                        .addParams("room_id", "1")
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+                                e.printStackTrace();
+                            }
 
-                time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
-                number_text.setText(meeting.getPeopleNumber());
-                theme_text.setText(meeting.getTheme());
+                            @Override
+                            public void onResponse(final String response, int id) {
+//                        final String responseText = response;
+                                Log.d("MainActivity", response);
+                                final AllData allData = parseJSONWithGSON(response);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (allData != null && "成功".equals(allData.msg)) {
+                                            SharedPreferences.Editor editor = PreferenceManager
+                                                    .getDefaultSharedPreferences(MainActivity.this).edit();
+                                            editor.clear();
+                                            editor.apply();
+                                            editor.putString("meeting_data", response);
+                                            editor.apply();
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                String responseText = prefs.getString("meeting_data",null);
+
+                AllData allData = parseJSONWithGSON(responseText);
+
+                meetingList.clear();
+                try {
+                    for (AllData.Data1 data1 : allData.Data1List) {
+                        Log.d("MainActivity", data1.theme + "|" + data1.startTime + "~" + data1.endTime + "| 人数为" + data1.peopleNumber);
+                        meetingList.add(new Meeting(data1.theme, data1.peopleNumber, data1.startTime, data1.endTime));
+                        for (Meeting mm : meetingList) {
+                            Log.d("MainActivity", mm.getTheme() + "|" + mm.getStartTime() + "~" + mm.getEndTime() + "| 人数为" + mm.getPeopleNumber());
+                        }
+                    }
+                    mHorizontalListViewAdapter = new HorizontalListViewAdapter(MainActivity.this, meetingList);
+                    mHorizontalListView.setAdapter(mHorizontalListViewAdapter);
+                    if (meetingList!=null&&meetingList.size()>0){
+                        Meeting meeting = meetingList.get(0);
+                        time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
+                        number_text.setText(meeting.getPeopleNumber()+"人");
+                        theme_text.setText(meeting.getTheme());
+                    }else{
+                        time_text.setText("该会议室当前时段没有会议");
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                    time_text.setText("该会议室当前时段没有会议");
+                }
+                Toast.makeText(MainActivity.this, "已更新", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        try {
+            mHorizontalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Meeting meeting = meetingList.get(position);
+                    Toast.makeText(MainActivity.this,
+                            meeting.getPeopleNumber(),
+                            Toast.LENGTH_SHORT).show();
+
+                    time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
+                    number_text.setText(meeting.getPeopleNumber());
+                    theme_text.setText(meeting.getTheme());
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+            time_text.setText("当前时段没有会议");
+        }
+
 
     }
 
@@ -225,6 +320,9 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(mapRefreshRun, 1000*60*10);
     }
 
+    /**
+     * 更新界面上的预定时段
+     */
     private void update1(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String responseText = prefs.getString("meeting_data",null);
@@ -261,25 +359,29 @@ public class MainActivity extends AppCompatActivity {
         AllData allData = parseJSONWithGSON(response);
 
         meetingList.clear();
-
-        for (AllData.Data1 data1 : allData.Data1List) {
-            Log.d("MainActivity", data1.theme + "|" + data1.startTime + "~" + data1.endTime + "| 人数为" + data1.peopleNumber);
-            meetingList.add(new Meeting(data1.theme, data1.peopleNumber, data1.startTime, data1.endTime));
-            for (Meeting mm : meetingList) {
-                Log.d("MainActivity", mm.getTheme() + "|" + mm.getStartTime() + "~" + mm.getEndTime() + "| 人数为" + mm.getPeopleNumber());
+        try {
+            for (AllData.Data1 data1 : allData.Data1List) {
+                Log.d("MainActivity", data1.theme + "|" + data1.startTime + "~" + data1.endTime + "| 人数为" + data1.peopleNumber);
+                meetingList.add(new Meeting(data1.theme, data1.peopleNumber, data1.startTime, data1.endTime));
+                for (Meeting mm : meetingList) {
+                    Log.d("MainActivity", mm.getTheme() + "|" + mm.getStartTime() + "~" + mm.getEndTime() + "| 人数为" + mm.getPeopleNumber());
+                }
             }
-        }
-        mHorizontalListView = (HorizontalListView) findViewById(R.id.horizontal_lv);
-        mHorizontalListViewAdapter = new HorizontalListViewAdapter(MainActivity.this, meetingList);
-        mHorizontalListView.setAdapter(mHorizontalListViewAdapter);
-        if (meetingList!=null&&meetingList.size()>0){
-            Meeting meeting = meetingList.get(0);
-            time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16)+"人");
-            number_text.setText(meeting.getPeopleNumber());
-            theme_text.setText(meeting.getTheme());
-        }else{
+
+            mHorizontalListViewAdapter = new HorizontalListViewAdapter(MainActivity.this, meetingList);
+            mHorizontalListView.setAdapter(mHorizontalListViewAdapter);
+            if (meetingList!=null&&meetingList.size()>0){
+                Meeting meeting = meetingList.get(0);
+                time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
+                number_text.setText(meeting.getPeopleNumber()+"人");
+                theme_text.setText(meeting.getTheme());
+            }else{
+                time_text.setText("该会议室当前时段没有会议");
+            }
+        }catch (Exception e){
             time_text.setText("该会议室当前时段没有会议");
         }
+
 
 
         Intent intent = new Intent(this,AutoUpdateService.class);
@@ -291,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
         dl = (DrawerLayout) findViewById(R.id.drawerlayout);
         rlRight = (RelativeLayout) findViewById(R.id.right);
 
+        request_text_click = (TextView)findViewById(R.id.request_text_click);
         showDate = (TextView) findViewById(R.id.date);
         showTime = (TextView) findViewById(R.id.time);
 
@@ -299,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
         plannedImageButton = (ImageButton) findViewById(R.id.planned);
 
         image11 = (ImageView) findViewById(R.id.image11);
-        Glide.with(this).load(R.drawable.room1).override(600, 400).into(image11);
+        Glide.with(this).load(R.drawable.room1).override(800, 400).into(image11);
 
         rqCodeFragment = new RQCodeFragment();
         adminFragment = new AdminFragment();
@@ -318,15 +421,6 @@ public class MainActivity extends AppCompatActivity {
         theme_text = (TextView) findViewById(R.id.theme_text);
 
         currentMeetingStaus = (TextView)findViewById(R.id.using_text);
-//        dealResponse(meetingList);
-
-
-//        recyclerView = (RecyclerView)findViewById(R.id.horizontal_lv);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        recyclerView .setLayoutManager(layoutManager);
-//        HRecyclerViewAdapter adapter = new HRecyclerViewAdapter(meetingList);
-//        recyclerView.setAdapter(adapter);
 
     }
 
@@ -426,7 +520,6 @@ public class MainActivity extends AppCompatActivity {
         /**
          * http://test.icms.work/api/v1/boardroom/todayMeetting?room_id=1
          */
-
         OkHttpUtils
                 .post()
                 .url("http://test.icms.work/api/v1/boardroom/todayMeetting?")
@@ -497,7 +590,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openDooraAndSignin(View view) {
-
         activeEngine(view);
         startActivity(new Intent(this, RecognizeActivity.class));
     }

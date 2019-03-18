@@ -18,87 +18,94 @@
         android:layout_marginTop="5dp"
         android:text="会议室详情"
         android:textColor="#fff"
-        android:textSize="40sp" />
+        android:textSize="34sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
-            android:text="容纳人数: "
-            android:textColor="#fff"
-            android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/number_text123"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="30人"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:text="容纳人数: "
                 android:textColor="#fff"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="100dp"
-                android:layout_height="1dp"
-                android:background="#ffffff"
-                android:textColor="#fff" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/number_text123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="30人"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="#ffffff"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
-            android:text="当前状态: "
-            android:textColor="#fff"
-            android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/using_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text=""
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:text="当前状态: "
                 android:textColor="#fff"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="100dp"
-                android:layout_height="1dp"
-                android:background="#ffffff"
-                android:textColor="#fff" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/using_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text=""
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="#ffffff"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+
+
+
 
     <ImageView
+
         android:id="@+id/image11"
         android:layout_width="400dp"
         android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        />
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_marginTop="10dp"

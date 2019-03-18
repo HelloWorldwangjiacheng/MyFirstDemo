@@ -19,7 +19,7 @@
         />
     <item
         android:id="@+id/admin"
-        android:icon="@drawable/admin"
+        android:icon="@drawable/g1"
         android:title="admin"
         app:showAsAction="always"
         />
@@ -30,7 +30,7 @@
         />
     <item
         android:id="@+id/help"
-        android:icon="@drawable/help"
+        android:icon="@drawable/help_icon1"
         android:title="help"
         app:showAsAction="always"
         />
@@ -40,4 +40,6 @@
         android:title="help"
         app:showAsAction="always"
         />
+
+
 </menu>

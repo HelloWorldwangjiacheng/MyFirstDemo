@@ -7,7 +7,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+
+    >
 
 
     <FrameLayout
@@ -15,14 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
+        android:background="@drawable/background82"
         >
         <!--android:background="@xml/layer_list"-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#646464"
+            android:layout_height="55dp"
+            android:background="#515151"
             >
             <ImageView
                 android:layout_marginLeft="40dp"
@@ -42,7 +44,7 @@
 
         <LinearLayout
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.8"
@@ -77,14 +79,18 @@
             android:layout_gravity="bottom">
 
             <TextView
+                android:id="@+id/request_text_click"
+                android:clickable="true"
                 android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="已预定时段   "
+                android:text="已预定"
                 android:textSize="25sp"
                 android:background="#646464"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:drawableRight="@drawable/gogo"
+                android:paddingRight="16dp"
                 />
 
             <com.example.myfirstdemo.Util.HorizontalListView

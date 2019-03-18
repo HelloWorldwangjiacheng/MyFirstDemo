@@ -6,28 +6,31 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/sign_in"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/g3"
         />
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <EditText
+            android:layout_gravity="center"
             android:id="@+id/input_login_account"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="50dp"
             android:drawableLeft="@drawable/input_account"
             android:hint="请输入管理员账号" />
 
         <EditText
+            android:layout_gravity="center"
             android:id="@+id/input_login_password"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="50dp"
             android:drawableLeft="@drawable/input_password"
             android:hint="请输入管理员密码" />
@@ -55,17 +58,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
-        <Button
-            android:id="@+id/back_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="返回"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+        <!--<Button-->
+            <!--android:id="@+id/back_login"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="返回"-->
+            <!--android:textSize="20sp"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"/>-->
     </LinearLayout>
 </LinearLayout>
