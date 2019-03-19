@@ -2,24 +2,163 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dbdbdb">
+    <!--标题-->
     <LinearLayout
-        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
         >
         <TextView
-            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用说明"
-            android:textSize="30sp"
+            android:text="使用说明 "
+            android:textSize="38sp"
             />
 
-
-
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/help_fragment_Image_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/help_fragment_image_11"
+            />
 
     </LinearLayout>
+    <!--第一段话-->
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击“已预定√”的时间段可显示"
+            android:drawableLeft="@drawable/black_point"
+            android:textSize="19sp"
+        />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="该时段的会议详情。"
+            android:textSize="19sp"
+            />
+    </LinearLayout>
+    <!--第二段话-->
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击 "
+            android:drawableLeft="@drawable/black_point"
+            android:drawableRight="@drawable/planned_small"
+            android:textSize="19sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 扫描二维码下载APP"
+            android:textSize="19sp"
+            />
+    </LinearLayout>
+    <!--第一个箭头-->
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击“我的”完成登录，若无账号"
+            android:drawableLeft="@drawable/jiantou"
+            android:textSize="19sp"
+            />
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="则先完成注册，再进行登录。"
+            android:textSize="19sp"
+            />
+    </LinearLayout>
+    <!--第二个箭头-->
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登陆成功后，点击首页即可"
+            android:drawableLeft="@drawable/jiantou"
+            android:textSize="19sp"
+            />
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始预约会议室。"
+            android:textSize="19sp"
+            />
+    </LinearLayout>
+    <!--第三段话-->
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击 "
+                android:drawableLeft="@drawable/black_point"
+                android:drawableRight="@drawable/g4"
+                android:textSize="19sp"
+                />
+            <TextView
 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 管理员登陆，若无权限，"
+                android:textSize="19sp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请勿随意使用"
+            android:textSize="19sp"
+            />
+    </LinearLayout>
 </LinearLayout>
