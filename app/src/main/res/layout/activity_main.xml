@@ -27,7 +27,7 @@
             android:background="#515151"
             >
             <ImageView
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/position"/>
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="已预定"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:background="#646464"
                 android:gravity="center"
                 android:textColor="#FFFFFF"

@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:text="会议时段: "
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             />
         <LinearLayout
             android:orientation="vertical"
@@ -30,6 +30,43 @@
 
             <TextView
                 android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:text=""
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#333333"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="会议主题: "
+            android:textColor="#000000"
+            android:textSize="22sp"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="260dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/theme_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
@@ -57,7 +94,7 @@
             android:layout_height="match_parent"
             android:text="参会人数: "
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             />
         <LinearLayout
             android:orientation="vertical"
@@ -81,41 +118,6 @@
                 />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
 
-        <TextView
-
-            android:layout_marginLeft="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="会议主题: "
-            android:textColor="#000000"
-            android:textSize="25sp"
-            />
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="260dp"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/theme_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:text=""
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#333333"
-                android:textColor="#000000"
-                />
-        </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>

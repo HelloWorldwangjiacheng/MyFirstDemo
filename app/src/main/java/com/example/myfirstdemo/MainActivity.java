@@ -176,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity",meeting.getTheme()+"|"+meeting.getPeopleNumber());
         }
 
-
         //定时自动读取缓存中的数据
         useHandler();
 
@@ -376,10 +375,10 @@ public class MainActivity extends AppCompatActivity {
                 number_text.setText(meeting.getPeopleNumber()+"人");
                 theme_text.setText(meeting.getTheme());
             }else{
-                time_text.setText("该会议室当前时段没有会议");
+                time_text.setText("当前暂无会议");
             }
         }catch (Exception e){
-            time_text.setText("该会议室当前时段没有会议");
+            time_text.setText("当前暂无会议");
         }
 
 

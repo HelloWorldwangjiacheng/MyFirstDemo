@@ -31,13 +31,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="110dp"
                 android:text="容纳人数: "
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -51,7 +51,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="170dp"
                     android:layout_height="1dp"
                     android:background="#ffffff"
                     android:textColor="#fff" />
@@ -68,13 +68,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="110dp"
                 android:text="当前状态: "
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -88,7 +88,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="170dp"
                     android:layout_height="1dp"
                     android:background="#ffffff"
                     android:textColor="#fff" />
