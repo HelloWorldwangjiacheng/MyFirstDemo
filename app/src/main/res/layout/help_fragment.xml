@@ -33,7 +33,7 @@
     </LinearLayout>
     <!--第一段话-->
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -47,7 +47,7 @@
             android:textSize="19sp"
         />
         <TextView
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="该时段的会议详情。"
@@ -56,7 +56,7 @@
     </LinearLayout>
     <!--第二段话-->
     <LinearLayout
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -125,7 +125,7 @@
     </LinearLayout>
     <!--第三段话-->
     <LinearLayout
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -154,10 +154,10 @@
                 />
         </LinearLayout>
         <TextView
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请勿随意使用"
+            android:text="请勿随意使用。"
             android:textSize="19sp"
             />
     </LinearLayout>

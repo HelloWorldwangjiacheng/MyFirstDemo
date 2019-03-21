@@ -47,7 +47,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -233,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                     mHorizontalListView.setAdapter(mHorizontalListViewAdapter);
                     if (meetingList!=null&&meetingList.size()>0){
                         Meeting meeting = meetingList.get(0);
+
                         time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
                         number_text.setText(meeting.getPeopleNumber()+"人");
                         theme_text.setText(meeting.getTheme());
@@ -258,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
 
                     time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
+
                     number_text.setText(meeting.getPeopleNumber());
                     theme_text.setText(meeting.getTheme());
                 }
@@ -268,48 +272,49 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //实时读取显示TextView里面的字符串
+                String S_startTime;
+                String S_endTime;
+                do {
+                    try{
+                        Thread.sleep(3000);
+                        final String currentTime_text = showTime.getText().toString().substring(1,3)+showTime.getText().toString().substring(4,6);
+                        String test1 = showTime.getText().toString();
 
+                        for (Meeting meeting : meetingList){
+                            S_startTime = meeting.getStartTime().substring(11,13)+meeting.getStartTime().substring(14,16);
+                            S_endTime = meeting.getEndTime().substring(11,13)+meeting.getEndTime().substring(14,16);
 
-    class Thread1 implements Runnable{
-
-        @Override
-        public void run() {
-            //实时读取显示TextView里面的字符串
-            do {
-                try{
-                    Thread.sleep(1000);
-                    final String currentTime_text = showTime.getText().toString().substring(0,5);
-                    for (Meeting meeting : meetingList){
-                        if (currentTime_text.compareTo(meeting.getStartTime())>=0 && currentTime_text.compareTo(meeting.getEndTime())<=0) isMeeting = true;
-                        else isMeeting = false;
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isMeeting) currentMeetingStaus.setText("正在开会");
-                            else currentMeetingStaus.setText("空闲中");
+                            if (currentTime_text.compareTo(S_startTime)>=0 && currentTime_text.compareTo(S_endTime)<=0){
+                                isMeeting = true;
+                                break;
+                            }else  isMeeting = false;
                         }
-                    });
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }while(true);
 
-
-        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (isMeeting) currentMeetingStaus.setText("正在开会");
+                                else currentMeetingStaus.setText("空闲中");
+                            }
+                        });
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }while(true);
+            }
+        }).start();
     }
 
 
     void useHandler(){
-
         mapRefreshRun = new Runnable() {
             @Override
             public void run() {
-
-
-                //更新地图上的数据
+                //更新数据
                 update1();
                 Toast.makeText(MainActivity.this, "已完成数据更新，当前为最新会议室安排", Toast.LENGTH_SHORT).show();
                 //将本runnable继续插入主线程中，再次执行。
@@ -318,7 +323,6 @@ public class MainActivity extends AppCompatActivity {
         };
         handler.postDelayed(mapRefreshRun, 1000*60*10);
     }
-
     /**
      * 更新界面上的预定时段
      */
@@ -410,10 +414,6 @@ public class MainActivity extends AppCompatActivity {
         TimeThreadShow timeThreadUtil = new TimeThreadShow(showDate, showTime);
         timeThreadUtil.start();
 
-        Thread1 stausThread = new Thread1();
-        new Thread(stausThread).start();
-
-
         //显示任意时段会议的具体信息
         time_text = (TextView) findViewById(R.id.time_text);
         number_text = (TextView) findViewById(R.id.number_text);
@@ -461,8 +461,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initList() {
-
-
 //        OkHttpUtils
 //                .post()
 //                .url("http://test.icms.work/api/v1/boardroom/todayMeetting?")
@@ -584,8 +582,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-
-
 
 
     public void openDooraAndSignin(View view) {
