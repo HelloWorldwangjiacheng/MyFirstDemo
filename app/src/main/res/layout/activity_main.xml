@@ -35,7 +35,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:text="东四604会议室"
+                android:text="达摩院"
                 android:textSize="30sp"
                 android:gravity="center"
                 android:textColor="#ffffff"
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_gravity="bottom">
-
+            <!--android:background="#646464"-->
             <TextView
                 android:id="@+id/request_text_click"
                 android:clickable="true"
@@ -86,11 +86,12 @@
                 android:layout_height="match_parent"
                 android:text="已预定"
                 android:textSize="20sp"
-                android:background="#646464"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:drawableRight="@drawable/gogo"
                 android:paddingRight="16dp"
+                android:background="#646464"
                 />
 
             <com.example.myfirstdemo.Util.HorizontalListView

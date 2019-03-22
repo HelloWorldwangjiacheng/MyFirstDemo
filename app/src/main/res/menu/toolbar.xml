@@ -11,6 +11,7 @@
         android:icon="@drawable/planned"
         android:title="planned"
         app:showAsAction="always"
+        android:foreground="?android:attr/selectableItemBackground"
         />
     <item
         android:icon="@drawable/touming"
@@ -22,6 +23,7 @@
         android:icon="@drawable/g1"
         android:title="admin"
         app:showAsAction="always"
+        android:foreground="?android:attr/selectableItemBackground"
         />
     <item
         android:icon="@drawable/touming"
@@ -33,6 +35,7 @@
         android:icon="@drawable/help_icon1"
         android:title="help"
         app:showAsAction="always"
+        android:foreground="?android:attr/selectableItemBackground"
         />
 
     <item

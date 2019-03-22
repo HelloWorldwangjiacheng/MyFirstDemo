@@ -241,10 +241,14 @@ public class MainActivity extends AppCompatActivity {
                         theme_text.setText(meeting.getTheme());
                     }else{
                         time_text.setText("该会议室当前时段没有会议");
+                        number_text.setText(" ");
+                        theme_text.setText(" ");
                     }
                 }catch(Exception e){
                     e.printStackTrace();
                     time_text.setText("该会议室当前时段没有会议");
+                    number_text.setText(" ");
+                    theme_text.setText(" ");
                 }
                 Toast.makeText(MainActivity.this, "已更新", Toast.LENGTH_SHORT).show();
             }
@@ -351,6 +355,8 @@ public class MainActivity extends AppCompatActivity {
             theme_text.setText(meeting.getTheme());
         }else{
             time_text.setText("该会议室当前时段没有会议");
+            number_text.setText(" ");
+            theme_text.setText(" ");
         }
     }
 
@@ -380,9 +386,13 @@ public class MainActivity extends AppCompatActivity {
                 theme_text.setText(meeting.getTheme());
             }else{
                 time_text.setText("当前暂无会议");
+                number_text.setText(" ");
+                theme_text.setText(" ");
             }
         }catch (Exception e){
             time_text.setText("当前暂无会议");
+            number_text.setText(" ");
+            theme_text.setText(" ");
         }
 
 
@@ -715,10 +725,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     //替换碎片
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmnet00, fragment);
         transaction.commit();
     }
+
 }
