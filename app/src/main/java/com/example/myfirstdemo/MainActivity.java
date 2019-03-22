@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                         Meeting meeting = meetingList.get(0);
 
                         time_text.setText(meeting.getStartTime().substring(11, 16) + "~" + meeting.getEndTime().substring(11, 16));
-                        number_text.setText(meeting.getPeopleNumber()+"人");
+                        number_text.setText(meeting.getPeopleNumber());
                         theme_text.setText(meeting.getTheme());
                     }else{
                         time_text.setText("该会议室当前时段没有会议");
