@@ -363,6 +363,7 @@ public class RecognizeActivity extends AppCompatActivity implements ViewTreeObse
                                         }
                                     } catch (JSONException e) {
                                         bad_count++;
+                                        messageView.setText("检测失败，未能匹配到相关信息");
                                         Log.d("Re",bad_count+"");
                                     }
                                 }
